@@ -49,7 +49,7 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: Mocha-Test-Results
-                path: mocha-test-results.xml
+                path: test-results.xml
                 retention-days: 1
 
     code-coverage:
