@@ -110,9 +110,8 @@ jobs:
                   ${{ vars.DOCKER_USERNAME }}/solar-system:${{ github.sha }}
                 docker ps -a
             
-                IP_ADDRESS=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' solar-system-app)
-                echo "IP Address of the Docker Container: $IP_ADDRESS"
-                echo "IP_ADDRESS=$IP_ADDRESS" >> $GITHUB_ENV 
-            
-                echo "Testing the Application"
-                wget -q -O - http://$IP_ADDRESS:3000/live | grep live 
+                export IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' solar-system-app)
+                echo "IP Address of the Docker Container: $IP"
+
+                echo "Tests images"
+                wget -q -O - 172.17.0.2/live | grep live 
